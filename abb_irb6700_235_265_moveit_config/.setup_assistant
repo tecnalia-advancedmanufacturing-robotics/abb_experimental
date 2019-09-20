@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: abb_irb6700_235_265_support
+    relative_path: urdf/irb6700_235_265.xacro
+  SRDF:
+    relative_path: config/abb_irbirb6700_235_265.srdf
+  CONFIG:
+    author_name: Keerthana Manivannan
+    author_email: keerthana.manivannan@gmail.com
+    generated_timestamp: 1499477269
