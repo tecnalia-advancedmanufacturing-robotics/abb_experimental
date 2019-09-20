@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="abb_irb6700_235_265" params="prefix">
+  <xacro:macro name="abb_irb6700_235_265" params="prefix offset_data">
+    <xacro:property name="__offset" value="${offset_data}"/>
     <xacro:include filename="$(find abb_resources)/urdf/common_materials.xacro"/>
     <!-- link list -->
     <link name="${prefix}base_link">
@@ -149,48 +150,141 @@
     </link>
     <link name="${prefix}tool0"/>
 
+    <!-- offset dummy links -->
+    <link name="${prefix}joint_1_link_offset">
+      <inertial>
+        <mass value="1" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0"
+               izz="1.0" />
+      </inertial>
+    </link>
+    <link name="${prefix}joint_2_link_offset">
+      <inertial>
+        <mass value="1" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0"
+               izz="1.0" />
+      </inertial>
+    </link>
+    <link name="${prefix}joint_3_link_offset">
+      <inertial>
+        <mass value="1" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0"
+               izz="1.0" />
+      </inertial>
+    </link>
+    <link name="${prefix}joint_4_link_offset">
+      <inertial>
+        <mass value="1" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0"
+               izz="1.0" />
+      </inertial>
+    </link>
+    <link name="${prefix}joint_5_link_offset">
+      <inertial>
+        <mass value="1" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0"
+               izz="1.0" />
+      </inertial>
+    </link>
+    <link name="${prefix}joint_6_link_offset">
+      <inertial>
+        <mass value="1" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0"
+               izz="1.0" />
+      </inertial>
+    </link>
+
+    <!-- joints -->
+    <joint name="${prefix}joint_1_joint_offset" type="fixed">
+        <origin xyz="${__offset[prefix+'joint_1_x']} ${__offset[prefix+'joint_1_y']} ${__offset[prefix+'joint_1_z']}"
+        quat_xyzw="${__offset[prefix+'joint_1_qx']} ${__offset[prefix+'joint_1_qy']} ${__offset[prefix+'joint_1_qz']} ${__offset[prefix+'joint_1_qw']}"/>
+        <parent link="${prefix}base_link"/>
+        <child link="${prefix}joint_1_link_offset"/>
+    </joint>
     <joint name="${prefix}joint_1" type="revolute">
       <origin xyz="0 0 0.78" rpy="0 0 0" />
-      <parent link="${prefix}base_link" />
+      <parent link="${prefix}joint_1_link_offset" />
       <child link="${prefix}link_1" />
       <axis xyz="0 0 1" />
       <limit lower="-${radians(170)}" upper="${radians(170)}" effort="0" velocity="${radians(100)}" />
     </joint>
+
+    <joint name="${prefix}joint_2_joint_offset" type="fixed">
+        <origin xyz="${__offset[prefix+'joint_2_x']} ${__offset[prefix+'joint_2_y']} ${__offset[prefix+'joint_2_z']}"
+        quat_xyzw="${__offset[prefix+'joint_2_qx']} ${__offset[prefix+'joint_2_qy']} ${__offset[prefix+'joint_2_qz']} ${__offset[prefix+'joint_2_qw']}"/>
+        <parent link="${prefix}link_1"/>
+        <child link="${prefix}joint_2_link_offset"/>
+    </joint>
     <joint name="${prefix}joint_2" type="revolute">
       <origin xyz="0.32 0 0" rpy="0 0 0" />
-      <parent link="${prefix}link_1" />
+      <parent link="${prefix}joint_2_link_offset" />
       <child link="${prefix}link_2" />
       <axis xyz="0 1 0" />
       <limit lower="-${radians(65)}" upper="${radians(85)}" effort="0" velocity="${radians(90)}" />
     </joint>
+
+    <joint name="${prefix}joint_3_joint_offset" type="fixed">
+        <origin xyz="${__offset[prefix+'joint_3_x']} ${__offset[prefix+'joint_3_y']} ${__offset[prefix+'joint_3_z']}"
+        quat_xyzw="${__offset[prefix+'joint_3_qx']} ${__offset[prefix+'joint_3_qy']} ${__offset[prefix+'joint_3_qz']} ${__offset[prefix+'joint_3_qw']}"/>
+        <parent link="${prefix}link_2"/>
+        <child link="${prefix}joint_3_link_offset"/>
+    </joint>
     <joint name="${prefix}joint_3" type="revolute">
       <origin xyz="0 0 1.135" rpy="0 0 0" />
-      <parent link="${prefix}link_2" />
+      <parent link="${prefix}joint_3_link_offset" />
       <child link="${prefix}link_3" />
       <axis xyz="0 1 0" />
       <limit lower="-${radians(180)}" upper="${radians(70)}" effort="0" velocity="${radians(90)}" />
     </joint>
+
+    <joint name="${prefix}joint_4_joint_offset" type="fixed">
+        <origin xyz="${__offset[prefix+'joint_4_x']} ${__offset[prefix+'joint_4_y']} ${__offset[prefix+'joint_4_z']}"
+        quat_xyzw="${__offset[prefix+'joint_4_qx']} ${__offset[prefix+'joint_4_qy']} ${__offset[prefix+'joint_4_qz']} ${__offset[prefix+'joint_4_qw']}"/>
+        <parent link="${prefix}link_3"/>
+        <child link="${prefix}joint_4_link_offset"/>
+    </joint>
     <joint name="${prefix}joint_4" type="revolute">
       <origin xyz="0 0 0.2" rpy="0 0 0" />
-      <parent link="${prefix}link_3" />
+      <parent link="${prefix}joint_4_link_offset" />
       <child link="${prefix}link_4" />
       <axis xyz="1 0 0" />
       <limit lower="-${radians(300)}" upper="${radians(300)}" effort="0" velocity="${radians(170)}" />
     </joint>
+
+    <joint name="${prefix}joint_5_joint_offset" type="fixed">
+        <origin xyz="${__offset[prefix+'joint_5_x']} ${__offset[prefix+'joint_5_y']} ${__offset[prefix+'joint_5_z']}"
+        quat_xyzw="${__offset[prefix+'joint_5_qx']} ${__offset[prefix+'joint_5_qy']} ${__offset[prefix+'joint_5_qz']} ${__offset[prefix+'joint_5_qw']}"/>
+        <parent link="${prefix}link_4"/>
+        <child link="${prefix}joint_5_link_offset"/>
+    </joint>
     <joint name="${prefix}joint_5" type="revolute">
       <origin xyz="1.1825 0 0" rpy="0 0 0" />
-      <parent link="${prefix}link_4" />
+      <parent link="${prefix}joint_5_link_offset" />
       <child link="${prefix}link_5" />
       <axis xyz="0 1 0" />
       <limit lower="-${radians(130)}" upper="${radians(130)}" effort="0" velocity="${radians(120)}" />
     </joint>
+
+    <joint name="${prefix}joint_6_joint_offset" type="fixed">
+        <origin xyz="${__offset[prefix+'joint_6_x']} ${__offset[prefix+'joint_6_y']} ${__offset[prefix+'joint_6_z']}"
+        quat_xyzw="${__offset[prefix+'joint_6_qx']} ${__offset[prefix+'joint_6_qy']} ${__offset[prefix+'joint_6_qz']} ${__offset[prefix+'joint_6_qw']}"/>
+        <parent link="${prefix}link_5"/>
+        <child link="${prefix}joint_6_link_offset"/>
+    </joint>
     <joint name="${prefix}joint_6" type="revolute">
       <origin xyz="0.2 0 0" rpy="0 0 0" />
-      <parent link="${prefix}link_5" />
+      <parent link="${prefix}joint_6_link_offset" />
       <child link="${prefix}link_6" />
       <axis xyz="1 0 0" />
       <limit lower="-${radians(360)}" upper="${radians(360)}" effort="0" velocity="${radians(190)}" />
     </joint>
+
     <joint name="${prefix}joint_6_tool0" type="fixed">
       <origin xyz="0 0 0" rpy="0 ${radians(90)} 0" />
       <parent link="${prefix}link_6" />
