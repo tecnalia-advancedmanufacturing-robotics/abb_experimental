@@ -1,0 +1,4 @@
+- git:
+    local-name: urdfdom
+    uri: 'https://github.com/VictorLamoine/urdfdom.git'
+    version: master
